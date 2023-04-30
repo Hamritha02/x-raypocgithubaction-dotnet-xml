@@ -30,4 +30,10 @@ jobs:
          path: "**/test-results.trx"                            
          reporter: dotnet-trx
          fail-on-error: false
+      - name: Submit results to Xray
+        env:
+          XRAY_URL: ${{ secrets.XRAY_URL }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        run: 'curl -H "Content-Type: multipart/form-data" -u $CLIENT_ID:$CLIENT_SECRET -F "file=@target/surefire-reports/TEST-com.xpand.java.CalcTest.xml" "$XRAY_URL/rest/raven/1.0/import/execution/dotnet?projectKey=PX"'
  
