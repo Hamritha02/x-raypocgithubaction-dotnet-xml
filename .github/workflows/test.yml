@@ -1,40 +1,46 @@
-name: unit test
-on: push
-jobs:
-  build-test:
-    env:
-     BUILD_CONFIG: 'Release'
-     SOLUTION: 'Solution1/UnitTest.sln'
-  
-    runs-on: ubuntu-latest
+name: CI
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
     
+jobs:
+  build_and_test:
+
+    env:
+      BUILD_CONFIG: 'Release'
+      SOLUTION: 'Solution1/UnitTest.sln'
+
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-            
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v3
-        with:
-         dotnet-version: '6.0.x'
-      - name: Install dependencies
-        run: dotnet restore $SOLUTION
-      - name: Build
-        run: dotnet build $SOLUTION --configuration $BUILD_CONFIG
-      - name: Test with dotnet
-        run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "xml;LogFileName=test-results.xml" || true
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.x
+
+
+    - name: Restore dependencies
+      run: dotnet restore $SOLUTION
+
+    - name: Build
+      run: dotnet build $SOLUTION --configuration $BUILD_CONFIG
       
-      - name: Publish Test Report
-        uses: dorny/test-reporter@v1
-        if: always()
-        with:
-         name: DotNET Tests
-         artifact: test-results
-         path: "**.xml"                            
-         reporter: jest-junit
-         fail-on-error: false
-      # - name: Submit results to Xray
-      #   env:
-      #     XRAY_URL: ${{ secrets.XRAY_URL }}
-      #     CLIENT_ID: ${{ secrets.CLIENT_ID }}
-      #     CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-      #   run: 'curl -H "Content-Type: Result-json" -u $CLIENT_ID:$CLIENT_SECRET -F "file=Solution1/UnitTestProject/TestResults/test-results.trx" "$XRAY_URL/rest/raven/1.0/import/execution/dotnet?projectKey=PX"'
- 
+    - name: Test
+      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "trx;LogFileName=test-results.trx" || true
+      
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: DotNET Tests
+        path: "**/test-results.trx"                            
+        reporter: dotnet-trx
+        fail-on-error: true
+    
