@@ -20,15 +20,15 @@ jobs:
       - name: Build
         run: dotnet build $SOLUTION --configuration $BUILD_CONFIG
       - name: Test with dotnet
-        run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "trx;LogFileName=test-results.trx" || true
+        run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "xml;LogFileName=test-results.xml" || true
       
       - name: Publish Test Report
         uses: dorny/test-reporter@v1
         if: always()
         with:
          name: DotNET Tests
-         path: "**/test-results.trx"                            
-         reporter: dotnet-trx
+         path: "**/test-results.xml"                            
+         reporter: jest-junit
          fail-on-error: false
       # - name: Submit results to Xray
       #   env:
