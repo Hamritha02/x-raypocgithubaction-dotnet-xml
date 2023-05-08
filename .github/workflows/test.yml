@@ -29,14 +29,14 @@ jobs:
       run: dotnet build $SOLUTION --configuration $BUILD_CONFIG
       
     - name: Test
-      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "junit;LogFileName=jest-junit.xml" || true
+      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "trx;LogFileName=test-result.trx" || true
       
     - name: Test Report
       uses: dorny/test-reporter@v1
       if: always()
       with: 
         name: DotNET Tests
-        path: "**/jest-junit.xml"                            
-        reporter: jest-junit
+        path: "**/test-result.trx"                            
+        reporter: dotnet-trx
         fail-on-error: false
     
