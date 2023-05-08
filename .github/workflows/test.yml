@@ -27,6 +27,7 @@ jobs:
         if: always()
         with:
          name: DotNET Tests
+         artifact: test-results
          path: "**.xml"                            
          reporter: jest-junit
          fail-on-error: false
