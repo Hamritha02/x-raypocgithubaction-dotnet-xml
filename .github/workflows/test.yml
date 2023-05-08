@@ -2,7 +2,8 @@ name: CI
 
 on:
   push:
-        
+  workflow_dispatch:
+      
 jobs:
   build_and_test:
 
@@ -33,7 +34,7 @@ jobs:
     - name: Test Report
       uses: dorny/test-reporter@v1
       if: always()
-      with:
+      with: 
         name: DotNET Tests
         path: "**/test-results.trx"                            
         reporter: dotnet-trx
