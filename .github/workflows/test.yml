@@ -42,8 +42,8 @@ jobs:
     - name: "Import results to Xray"
       uses: mikepenz/xray-action@v2
       with:
-        username: ${{ secrets.ORG_ID }}
-        password: ${{ secrets.API_KEY }}
+        username: ${{ secrets.CLIENT_ID }}
+        password: ${{ secrets.CLIENT_SECRET }}
         testFormat: "nunit"
         testPaths: "**/test-results.trx"
         testExecKey: "PX-7"
