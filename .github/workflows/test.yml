@@ -29,7 +29,7 @@ jobs:
       run: dotnet build $SOLUTION --configuration $BUILD_CONFIG
       
     - name: Test
-      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "xunit;LogFileName=test-results.xml" || true
+      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "trx;LogFileName=test-results.xml" || true
       
     - name: Test Report
       uses: dorny/test-reporter@v1
@@ -37,7 +37,7 @@ jobs:
       with: 
         name: DotNET Tests
         path: "**/test-results.xml"                            
-       # reporter: dotnet-trx 
+        reporter: dotnet-trx 
         fail-on-error: false
     - name: "Import results to Xray"
       uses: mikepenz/xray-action@v2
