@@ -39,4 +39,13 @@ jobs:
         path: "**/test-result.trx"                            
         reporter: dotnet-trx
         fail-on-error: false
+    - name: "Import results to Xray"
+      uses: mikepenz/xray-action@{latest-release}
+      with:
+        username: ${{ secrets.CLIENT_ID }}
+        password: ${{ secrets.CLIENT_SECRET }}
+        testFormat: "xunit"
+        testPaths: "**/test-result.trx"
+        testExecKey: "PX-7"
+        projectKey: "PX"
     
