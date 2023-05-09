@@ -44,7 +44,6 @@ jobs:
       with:
         username: ${{ secrets.ORG_ID }}
         password: ${{ secrets.API_KEY }}
-        XrayAPi: 
         testFormat: "nunit"
         testPaths: "**/test-results.trx"
         testExecKey: "PX-7"
