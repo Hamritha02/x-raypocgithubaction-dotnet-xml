@@ -45,7 +45,7 @@ jobs:
         username: ${{ secrets.CLIENT_ID }}
         password: ${{ secrets.CLIENT_SECRET }}
         testFormat: "nunit"
-        testPaths: "**/test-results.xml"
+        testPaths: "**/test-results.trx"
         testExecKey: "PX-7"
         projectKey: "PX"
     
