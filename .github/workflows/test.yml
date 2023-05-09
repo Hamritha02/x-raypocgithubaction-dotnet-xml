@@ -46,8 +46,9 @@ jobs:
         password: ${{ secrets.CLIENT_SECRET }}
         testFormat: "nunit"
         testPaths: "**/test-results.xml"
-        testExecKey: "PX-7"
         projectKey: "PX"
+        testExecKey: "PX-7"
+        
     #  run: 'curl -H "Content-Type: application/json" -X POST --data "{ ""client_id"": ${{ secrets.CLIENT_ID }},""client_secret"": ${{ secrets.CLIENT_SECRET }} }" https://xray.cloud.getxray.app/api/v1/authenticate
 
     
