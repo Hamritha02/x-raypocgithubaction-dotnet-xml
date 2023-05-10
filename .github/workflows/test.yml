@@ -40,7 +40,7 @@ jobs:
         reporter: dotnet-trx 
         fail-on-error: false
     - name: "Import results to Xray"
-      uses: xray-automation/xray-import@v2
+      uses: mikepenz/xray-action@v2
       with:
         username: ${{ secrets.client_id }}
         password: ${{ secrets.client_secret }}
