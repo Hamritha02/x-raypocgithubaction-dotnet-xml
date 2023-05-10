@@ -10,6 +10,8 @@ jobs:
     env:
       BUILD_CONFIG: 'Release'
       SOLUTION: 'Solution1/UnitTest.sln'
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
       
    
     runs-on: ubuntu-latest
@@ -40,13 +42,22 @@ jobs:
         path: "**/test-results.xml"                            
         reporter: dotnet-trx 
         fail-on-error: false
+    - name: "Get Xray Token"
+      id: xray-token
+      shell: bash
+      run: |
+        echo ::set-output name=XRAY_TOKEN::$(curl -H "Content-Type: application/json" -X POST --data '{ "client_id": "CLIENT_ID","client_secret": "CLIENT_SECRET" }'  https://xray.cloud.getxray.app/api/v1/authenticate| tr -d '"')
+      #run: curl -H "Content-Type: application/json" -X POST --data '{ "client_id": "CLIENTID","client_secret": "CLIENTSECRET" }'  https://xray.cloud.getxray.app/api/v1/authenticate
+     
     - name: "Import results to Xray"
-      env:
-        JIRA_SERVER_URL: ${{ secrets.XRAY_URL }}
-        JIRA_USERNAME: ${{ secrets.jira_username }}
-        JIRA_PASSWORD: ${{ secrets.jira_password }}
+      # env:
+      #   JIRA_SERVER_URL: ${{ secrets.XRAY_URL }}
+      #   JIRA_USERNAME: ${{ secrets.jira_username }}
+      #   JIRA_PASSWORD: ${{ secrets.jira_password }}
        # JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
        # JIRA_API_TOKEN: ${{ secrets.XRAY_TOKEN }}
-      run: 'curl -H "Content-Type: multipart/form-data" -u $JIRA_USERNAME:$JIRA_PASSWORD -F "file="**/test-results.xml" "$JIRA_SERVER_URL/rest/raven/1.0/import/execution/nunit?projectKey=PX"'
+      shell: bash 
+      run: 'curl -H "Content-Type: text/xml" -X POST -H "Authorization: Bearer ${{ steps.xray-token.outputs.XRAY_TOKEN }}"  --data @"**/test-results.xml" https://xray.cloud.getxray.app/api/v2/import/execution/nunit?projectKey=PX'
+'
 
       
