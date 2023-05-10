@@ -11,6 +11,7 @@ jobs:
       BUILD_CONFIG: 'Release'
       SOLUTION: 'Solution1/UnitTest.sln'
       
+    permissions: read-all|write-all
     runs-on: ubuntu-latest
 
     steps:
