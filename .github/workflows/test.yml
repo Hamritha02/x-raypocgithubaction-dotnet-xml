@@ -43,7 +43,7 @@ jobs:
       with: 
         name: DotNET Tests
         path: "**/test-results.xml"                            
-        reporter: dotnet-test-nunit 
+        reporter: dotnet-nunit 
         fail-on-error: false
     - name: "Get Xray Token"
       id: xray-token
