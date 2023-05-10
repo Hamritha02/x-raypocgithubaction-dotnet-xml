@@ -41,15 +41,12 @@ jobs:
         reporter: dotnet-trx 
         fail-on-error: false
     - name: "Import results to Xray"
-      uses: mikepenz/xray-action@v2
-      with:
-        username: ${{ secrets.CLIENT_ID }}
-        password: ${{ secrets.CLIENT_SECRET }}
-        testFormat: "nunit"
-        testPaths: "**/test-results.xml"   
-        projectKey: "PX"
-        testExecKey: "PX-7"
-        XRAY_TOKEN: ${{secrets.XRAY_TOKEN}}
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
+        JIRA_SERVER_URL: ${{ secrets.XRAY_URL }}
+        JIRA_USERNAME: ${{ secrets.jira_username }}
+        JIRA_PASSWORD: ${{ secrets.jira_password }}
+       # JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.XRAY_TOKEN }}
+      run: 'curl -H "Content-Type: multipart/form-data" -u $JIRA_USERNAME:$JIRA_PASSWORD -F "file="**/test-results.xml" "$JIRA_SERVER_URL/rest/raven/1.0/import/execution/nunit?projectKey=PX"'
+
+      
