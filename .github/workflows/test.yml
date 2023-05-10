@@ -10,10 +10,7 @@ jobs:
     env:
       BUILD_CONFIG: 'Release'
       SOLUTION: 'Solution1/UnitTest.sln'
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      CLIENT_ID: ${{ secrets.CLIENT_ID }}
-      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-
+      
     runs-on: ubuntu-latest
 
     steps:
@@ -43,20 +40,12 @@ jobs:
         reporter: dotnet-trx 
         fail-on-error: false
     - name: "Import results to Xray"
-      uses: actions/checkout@v2
-      
+      uses: xray-automation/xray-import@v2
       with:
-        username: ${{ secrets.CLIENT_ID }}
-        password: ${{ secrets.CLIENT_SECRET }}
-        #xrayCloud: "false"
-        #xrayBaseUrl: "https://xray-cloud.xpand-it.com"
+        username: ${{ secrets.client_id }}
+        password: ${{ secrets.client_secret }}
         testFormat: "nunit"
-        testPaths: "**/test-results.xml"
+        testPaths: "**/test-results.xml"   
         projectKey: "PX"
         testExecKey: "PX-7"
-      env: 
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
-    #  run: 'curl -H "Content-Type: application/json" -X POST --data "{ ""client_id"": ${{ secrets.CLIENT_ID }},""client_secret"": ${{ secrets.CLIENT_SECRET }} }" https://xray.cloud.getxray.app/api/v1/authenticate
-
-    
