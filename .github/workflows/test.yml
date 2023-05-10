@@ -10,6 +10,9 @@ jobs:
     env:
       BUILD_CONFIG: 'Release'
       SOLUTION: 'Solution1/UnitTest.sln'
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
 
     runs-on: ubuntu-latest
 
@@ -40,7 +43,8 @@ jobs:
         reporter: dotnet-trx 
         fail-on-error: false
     - name: "Import results to Xray"
-      uses: mikepenz/xray-action@v2
+      uses: ./
+      
       with:
         username: ${{ secrets.CLIENT_ID }}
         password: ${{ secrets.CLIENT_SECRET }}
@@ -50,6 +54,8 @@ jobs:
         testPaths: "**/test-results.xml"
         projectKey: "PX"
         testExecKey: "PX-7"
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     #  run: 'curl -H "Content-Type: application/json" -X POST --data "{ ""client_id"": ${{ secrets.CLIENT_ID }},""client_secret"": ${{ secrets.CLIENT_SECRET }} }" https://xray.cloud.getxray.app/api/v1/authenticate
 
