@@ -43,13 +43,13 @@ jobs:
         reporter: dotnet-trx 
         fail-on-error: false
     - name: "Import results to Xray"
-      uses: ./
+      uses: actions/checkout@v2
       
       with:
         username: ${{ secrets.CLIENT_ID }}
         password: ${{ secrets.CLIENT_SECRET }}
-        xrayCloud: "false"
-        xrayBaseUrl: "https://xray-cloud.xpand-it.com"
+        #xrayCloud: "false"
+        #xrayBaseUrl: "https://xray-cloud.xpand-it.com"
         testFormat: "nunit"
         testPaths: "**/test-results.xml"
         projectKey: "PX"
