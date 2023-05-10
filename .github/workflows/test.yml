@@ -45,7 +45,7 @@ jobs:
         username: ${{ secrets.CLIENT_ID }}
         password: ${{ secrets.CLIENT_SECRET }}
         xrayCloud: "false"
-       # xrayBaseUrl: "https://xray.cloud.getxray.app/"
+        xrayBaseUrl: "https://xray-demo3.xpand-it.com"
         testFormat: "nunit"
         testPaths: "**/test-results.xml"
         projectKey: "PX"
