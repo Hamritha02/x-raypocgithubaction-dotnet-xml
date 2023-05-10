@@ -57,7 +57,7 @@ jobs:
        # JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
        # JIRA_API_TOKEN: ${{ secrets.XRAY_TOKEN }}
       shell: bash 
-      run: 'curl -H "Content-Type: application/json" -X POST -H "Authorization: Bearer ${{ steps.xray-token.outputs.XRAY_TOKEN }}"  --data @"test-results.xml" https://xray.cloud.getxray.app/api/v2/import/execution/nunit?projectKey=PX'
+      run: 'curl -H "Content-Type: text/xml" -X POST -H "Authorization: Bearer ${{ steps.xray-token.outputs.XRAY_TOKEN }}"  --data @"test-results.xml" https://xray.cloud.getxray.app/api/v2/import/execution/nunit?projectKey=PX'
 
 
       
