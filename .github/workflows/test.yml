@@ -48,4 +48,6 @@ jobs:
         testPaths: "**/test-results.xml"   
         projectKey: "PX"
         testExecKey: "PX-7"
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
         
