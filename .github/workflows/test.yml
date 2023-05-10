@@ -51,5 +51,5 @@ jobs:
         testExecKey: "PX-7"
         XRAY_TOKEN: ${{secrets.XRAY_TOKEN}}
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
