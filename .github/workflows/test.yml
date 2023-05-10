@@ -46,7 +46,7 @@ jobs:
         JIRA_USERNAME: ${{ secrets.jira_username }}
         JIRA_PASSWORD: ${{ secrets.jira_password }}
        # JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
-        JIRA_API_TOKEN: ${{ secrets.XRAY_TOKEN }}
+       # JIRA_API_TOKEN: ${{ secrets.XRAY_TOKEN }}
       run: 'curl -H "Content-Type: multipart/form-data" -u $JIRA_USERNAME:$JIRA_PASSWORD -F "file="**/test-results.xml" "$JIRA_SERVER_URL/rest/raven/1.0/import/execution/nunit?projectKey=PX"'
 
       
