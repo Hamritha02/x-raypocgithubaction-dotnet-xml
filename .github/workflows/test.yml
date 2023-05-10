@@ -32,8 +32,15 @@ jobs:
       run: dotnet build $SOLUTION --configuration $BUILD_CONFIG
       
     - name: Test
-      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "trx;LogFileName=test-results.xml" || true
-      
+      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "nunit;LogFileName=test-results.xml" || true
+    
+    # - name: Upload Test
+    #   run: dotnet test --no-restore --verbosity normal --logger:"nunit"
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      if: always()
+      with:
+        files: ${{ github.workspace }}**/test-results.xml  
     - name: Test Report
       uses: dorny/test-reporter@v1
       if: always()
