@@ -36,19 +36,19 @@ jobs:
       run: dotnet build $SOLUTION --configuration $BUILD_CONFIG
       
     - name: Test
-      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "xunit;LogFileName=test-results.xml" || true
+      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "nunit;LogFileName=test-results.xml" || true
     
     # - name: Upload Test
     #   run: dotnet test --no-restore --verbosity normal --logger:"nunit"
      
-    # - name: Test Report
-    #   uses: dorny/test-reporter@v1
-    #   if: always()
-    #   with: 
-    #     name: DotNET Tests
-    #     path: "**/test-results.xml"                            
-    #     reporter: dotnet-trx 
-    #     fail-on-error: false
+     - name: Test Report
+       uses: dorny/test-reporter@v1
+       if: always()
+       with: 
+         name: DotNET Tests
+         path: "**/test-results.xml"                            
+         reporter: dotnet-trx 
+         fail-on-error: false
     - name: Publish Specflow Test Logs
       if: success() || failure()
       uses: actions/upload-artifact@v2
