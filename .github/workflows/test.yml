@@ -45,12 +45,19 @@ jobs:
         path: "**/test-results.xml"                            
         reporter: dotnet-trx 
         fail-on-error: false
+    - name: Publish Specflow Test Logs
+      if: success() || failure()
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: |
+          **/test-results.xml
     - name: "Get Xray Token"
       id: xray-token
       shell: bash
       run: |
-        echo ::save-output name=XRAY_TOKEN::$(curl -k -H "Content-Type: application/json" -X POST --data "{ "client_id": "CLIENT_ID","client_secret": "CLIENT_SECRET" }"  https://xray.cloud.getxray.app/api/v2/authenticate)
-        echo $XRAY_TOKEN
+        echo ::save-output name=XRAY_TOKEN::$(curl -k -H "Content-Type: application/json" -X POST --data "{ "client_id": "CLIENT_ID","client_secret": "CLIENT_SECRET" }"  https://xray.cloud.getxray.app/api/v1/authenticate)
+        
       #run: curl -H "Content-Type: application/json" -X POST --data '{ "client_id": "CLIENT_ID","client_secret": "CLIENT_SECRET" }'  https://xray.cloud.getxray.app/api/v1/authenticate
      
     - name: "Import results to Xray"
@@ -61,7 +68,7 @@ jobs:
        # JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
        # JIRA_API_TOKEN: ${{ secrets.XRAY_TOKEN }}
       shell: bash 
-      run: 'curl -H "Content-Type: application/json" -X POST -H "Authorization: Bearer ${{ steps.xray-token.outputs.XRAY_TOKEN }}"  --data @"**/test-results.xml"  https://xray.cloud.getxray.app/api/v2/import/execution/nunit?projectKey=PX'
+      run: 'curl -H "Content-Type: application/json" -X POST -H "Authorization: Bearer ${{ steps.xray-token.outputs.XRAY_TOKEN }}"  --data @"**/test-results.xml"  https://xray.cloud.getxray.app/api/v1/import/execution/nunit?projectKey=PX'
 
 
       
