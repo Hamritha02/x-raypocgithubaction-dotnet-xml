@@ -32,15 +32,8 @@ jobs:
       run: dotnet build $SOLUTION --configuration $BUILD_CONFIG
       
     - name: Test
-      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "trx;LogFileName=test-results.xml" || true
-    - name: Test Report
-      uses: dorny/test-reporter@v1
-      if: always()
-      with: 
-        name: DotNET Tests
-        path: "**/test-results.xml"                            
-        reporter: dotnet-trx 
-        fail-on-error: false
+      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "xunit;LogFileName=test-results.xml" || true
+    
     - name: Publish Specflow Test Logs
       if: always()
       uses: actions/upload-artifact@v2
@@ -52,7 +45,7 @@ jobs:
       id: xray-token
       shell: bash
       run: |
-                echo ::set-output name=XRAY_TOKEN::$(curl -k -H "Content-Type: application/json" -X POST --data "{ \"client_id\": \"$CLIENT_ID\",\"client_secret\": \"$CLIENT_SECRET\" }" https://xray.cloud.getxray.app/api/v1/authenticate| tr -d '"')
+        echo ::set-output name=XRAY_TOKEN::$(curl -k -H "Content-Type: application/json" -X POST --data "{ \"client_id\": \"$CLIENT_ID\",\"client_secret\": \"$CLIENT_SECRET\" }" https://xray.cloud.getxray.app/api/v1/authenticate| tr -d '"')
        
          
     - name: "Import results to Xray"
