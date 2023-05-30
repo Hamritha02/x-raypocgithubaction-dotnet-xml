@@ -44,7 +44,7 @@ jobs:
       shell: bash
       run: |
         echo ::set-output name=XRAY_TOKEN::$(curl -k -H "Content-Type: application/json" -X POST --data "{ \"client_id\": \"$CLIENT_ID\",\"client_secret\": \"$CLIENT_SECRET\" }" https://xray.cloud.getxray.app/api/v1/authenticate)
-       
+
     - name: "Import results to Xray"
       # env:
       #   JIRA_SERVER_URL: ${{ secrets.XRAY_URL }}
