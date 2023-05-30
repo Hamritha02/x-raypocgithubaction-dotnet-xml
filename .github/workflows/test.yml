@@ -93,7 +93,7 @@ jobs:
         } )
 
         with open(test_results_file, "rb") as file:
-           response = requests.post(xray_import_url, headers=headers, data=file, json.dumps=payload)
+           response = requests.post(xray_import_url, headers=headers, data=file, json=payload)
 
             
         print("response.status_code ", response.status_code)
