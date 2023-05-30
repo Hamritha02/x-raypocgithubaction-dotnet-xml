@@ -73,7 +73,7 @@ jobs:
             "Authorization": f"Bearer {auth_token}"
         }
         
-        payload = {
+        payload = json.dumps({
             "fields": {
                 "fixVersions" : "1000",
                 "summary": "Main order flow broken",
@@ -90,7 +90,7 @@ jobs:
                 "startDate": "2014-08-30T11:47:35+01:00",
                 "finishDate": "2014-08-30T11:53:00+01:00"
             }
-        }
+        } )
 
         with open(test_results_file, "rb") as file:
            response = requests.post(xray_import_url, headers=headers, data=file, json=payload)
