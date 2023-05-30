@@ -56,7 +56,6 @@ jobs:
       #shell: bash 
       #run: 'curl -H "Content-Type: text/xml" -X POST -H "Authorization: Bearer ${{ steps.xray-token.outputs.XRAY_TOKEN }}"  --data @"/home/runner/work/x-raypocgithubaction-dotnet-xml/x-raypocgithubaction-dotnet-xml/Solution1/UnitTestProject/TestResults/test-results.xml"  https://xray.cloud.getxray.app/api/v1/import/execution/xunit?projectKey=PX'
       run: |
-        python - <<EOF
         import requests
         import json
         import os
