@@ -65,8 +65,8 @@ jobs:
         
         xray_token = "${{ steps.xray-token.outputs.XRAY_TOKEN }}"
 
-        xray_import_url = "https://xray.cloud.getxray.app/api/v1/import/execution/xunit?projectKey=PT1"
-        test_results_file = "/home/runner/work/Xray/Xray/Solution1/UnitTestProject/TestResults/test-results.xml"
+        xray_import_url = "https://xray.cloud.getxray.app/api/v1/import/execution/xunit?projectKey=PX"
+        test_results_file = "/home/runner/work/x-raypocgithubaction-dotnet-xml/x-raypocgithubaction-dotnet-xml/Solution1/UnitTestProject/TestResults/test-results.xml"
 
         headers = {
             "Content-Type": "text/xml",
@@ -86,7 +86,7 @@ jobs:
             "info": {
                 "summary": "TEST Execution of automated tests for release v1.3",
                 "description": "TEST This execution is automatically created when importing execution results from an external source",
-                "user": "danielpraveenkumar.k@gmail.com",
+                "user": "hamrithadaya@gmail.com",
                 "startDate": "2014-08-30T11:47:35+01:00",
                 "finishDate": "2014-08-30T11:53:00+01:00"
             }
@@ -120,7 +120,7 @@ jobs:
         
         print("........................GET API STARTS..................................")
         url = "https://danielpraveenkumar.atlassian.net/rest/api/3/issue/"+response_data['id']
-        auth = HTTPBasicAuth("danielpraveenkumar.k@gmail.com", "auth_token")
+        auth = HTTPBasicAuth("hamrithadaya@gmail.com", "auth_token")
         headers = {
          "Accept": "application/json"
         }
@@ -138,7 +138,7 @@ jobs:
         url = "https://danielpraveenkumar.atlassian.net/rest/api/3/issue/"+response_data['id']
         
         print("EDIT Ticket URL :",url)
-        auth = HTTPBasicAuth("danielpraveenkumar.k@gmail.com", "auth_token")
+        auth = HTTPBasicAuth("hamrithadaya@gmail.com", "auth_token")
         print("Session Auth token: ",auth_token)
         headers = {
           "Accept": "application/json",
