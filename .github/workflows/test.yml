@@ -119,7 +119,7 @@ jobs:
         
         
         print("........................GET API STARTS..................................")
-        url = "https://danielpraveenkumar.atlassian.net/rest/api/3/issue/"+response_data['id']
+        url = "https://hamritha.atlassian.net/rest/api/3/issue/"+response_data['id']
         auth = HTTPBasicAuth("hamrithadaya@gmail.com", "auth_token")
         headers = {
          "Accept": "application/json"
@@ -135,7 +135,7 @@ jobs:
         print("........................GET API ENDS..................................")
         
         
-        url = "https://danielpraveenkumar.atlassian.net/rest/api/3/issue/"+response_data['id']
+        url = "https://hamritha.atlassian.net/rest/api/3/issue/"+response_data['id']
         
         print("EDIT Ticket URL :",url)
         auth = HTTPBasicAuth("hamrithadaya@gmail.com", "auth_token")
