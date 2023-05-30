@@ -79,7 +79,7 @@ jobs:
                 "summary": "Main order flow broken",
                 "description": "Order entry fails when selecting supplier.",
                 "project": {
-                    "key": "PT1"
+                    "key": "PX"
                 }
             },
             "update": {},
